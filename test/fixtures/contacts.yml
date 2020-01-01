@@ -4,8 +4,8 @@ one:
   first_name: <%= Faker::Name.first_name %>
   last_name: <%= Faker::Name.last_name %>
   phone: <%= Faker::PhoneNumber.cell_phone %>
-  streat: <%= Faker::Address.street_name %>
-  neighbourhood: <%= Faker::Address.community %>
+  street: <%= Faker::Address.street_name %>
+  neighborhood: <%= Faker::Address.community %>
   city: <%= Faker::Address.city %>
   state: <%= Faker::Address.state %>
   birthday: <%= Faker::Date.birthday %>
@@ -15,8 +15,8 @@ two:
   first_name: <%= Faker::Name.first_name %>
   last_name: <%= Faker::Name.last_name %>
   phone: <%= Faker::PhoneNumber.cell_phone %>
-  streat: <%= Faker::Address.street_name %>
-  neighbourhood: <%= Faker::Address.community %>
+  street: <%= Faker::Address.street_name %>
+  neighborhood: <%= Faker::Address.community %>
   city: <%= Faker::Address.city %>
   state: <%= Faker::Address.state %>
   birthday: <%= Faker::Date.birthday %>

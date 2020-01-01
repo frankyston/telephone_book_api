@@ -19,11 +19,11 @@ ActiveRecord::Schema.define(version: 2020_01_01_195457) do
     t.string "first_name", null: false
     t.string "last_name"
     t.string "phone", null: false
-    t.string "streat"
-    t.string "neighbourhood"
+    t.string "street"
+    t.string "neighborhood"
     t.string "city"
     t.string "state"
-    t.string "birthday"
+    t.date "birthday"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
