@@ -8,7 +8,7 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
   test 'should show user' do
     get api_v1_user_url(@user), as: :json
     response_json = JSON.parse(response.body)
-    assert_equal @user.email, response_json['email']
+    assert_equal @user.email, response_json['data']['attributes']['email']
   end
 
   test 'should create user' do
