@@ -34,8 +34,9 @@ class Api::V1::ContactsControllerTest < ActionDispatch::IntegrationTest
     }, as: :json
 
     assert_response :success
-    json_response = JSON.parse(response.body)
-    assert_equal @contact.first_name, json_response['data']['attributes']['first_name']
+    json_response = JSON.parse(response.body, symbolize_names: true)
+    assert_equal @contact.first_name, json_response.dig(:data, :attributes, :first_name)
+    assert_equal @contact.user.id.to_s, json_response.dig(:data, :relationships, :user, :data, :id)
   end
 
   test 'should create contact' do
