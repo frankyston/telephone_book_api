@@ -33,4 +33,27 @@ class Api::V1::UsersControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unprocessable_entity
   end
+
+  test 'should update user' do
+    patch api_v1_user_url(@user), params: {
+      user: {
+        email: 'mailupdate@mail.com',
+        password: 'super123'
+      }
+    }, as: :json
+
+    assert_response :success
+  end
+
+  test 'should not update user without taken email' do
+    patch api_v1_user_url(@user), params: {
+      user: {
+        email: 'bad_email',
+        password: 'super123'
+      }
+    }, as: :json
+
+    response_json = JSON.parse(response.body)
+    assert_response :unprocessable_entity
+  end
 end
