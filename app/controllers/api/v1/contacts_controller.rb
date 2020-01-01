@@ -1,7 +1,6 @@
 class Api::V1::ContactsController < ApplicationController
-  # before_action :check_owner
   before_action :check_login
-  before_action :set_contact, only: [:show, :update]
+  before_action :set_contact, only: [:show, :update, :destroy]
 
   def index
     render json: current_user.contacts, status: :ok
@@ -27,6 +26,11 @@ class Api::V1::ContactsController < ApplicationController
     else
       render json: { errors: @contact.errors }, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    @contact.destroy
+    head 204
   end
 
   private

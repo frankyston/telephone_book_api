@@ -68,7 +68,6 @@ class Api::V1::ContactsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should update contact' do
-
     patch api_v1_contact_url(@contact), params: @params,
     headers: {
       Authorization: JsonWebToken.encode(user_id: @contact.user_id)
@@ -78,5 +77,14 @@ class Api::V1::ContactsControllerTest < ActionDispatch::IntegrationTest
 
     json_response = JSON.parse(response.body)
     assert_equal @params[:contact][:last_name], json_response['last_name']
+  end
+
+  test 'should delete contact' do
+    delete api_v1_contact_url(@contact),
+    headers: {
+      Authorization: JsonWebToken.encode(user_id: @contact.user_id)
+    }
+
+    assert_response :no_content
   end
 end
