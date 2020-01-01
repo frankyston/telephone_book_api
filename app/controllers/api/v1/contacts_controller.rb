@@ -3,18 +3,19 @@ class Api::V1::ContactsController < ApplicationController
   before_action :set_contact, only: [:show, :update, :destroy]
 
   def index
-    render json: current_user.contacts, status: :ok
+    contacts = ContactSerializer.new(current_user.contacts).serializable_hash
+    render json: contacts, status: :ok
   end
 
   def show
-    render json: @contact, status: :ok
+    render json: ContactSerializer.new(@contact).serializable_hash, status: :ok
   end
 
   def create
     contact = current_user.contacts.build(contact_params)
 
     if contact.save
-      render json: contact, status: :created
+      render json: ContactSerializer.new(contact).serializable_hash, status: :created
     else
       render json: { errors: contact.errors }, status: :unprocessable_entity
     end
@@ -22,7 +23,7 @@ class Api::V1::ContactsController < ApplicationController
 
   def update
     if @contact.update(contact_params)
-      render json: @contact, status: :ok
+      render json: ContactSerializer.new(@contact).serializable_hash, status: :ok
     else
       render json: { errors: @contact.errors }, status: :unprocessable_entity
     end

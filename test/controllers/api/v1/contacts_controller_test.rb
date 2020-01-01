@@ -35,7 +35,7 @@ class Api::V1::ContactsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     json_response = JSON.parse(response.body)
-    assert_equal @contact.first_name, json_response['first_name']
+    assert_equal @contact.first_name, json_response['data']['attributes']['first_name']
   end
 
   test 'should create contact' do
@@ -76,7 +76,7 @@ class Api::V1::ContactsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
 
     json_response = JSON.parse(response.body)
-    assert_equal @params[:contact][:last_name], json_response['last_name']
+    assert_equal @params[:contact][:last_name], json_response['data']['attributes']['last_name']
   end
 
   test 'should delete contact' do
