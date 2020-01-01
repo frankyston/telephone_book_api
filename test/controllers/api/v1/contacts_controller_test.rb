@@ -3,6 +3,19 @@ require 'test_helper'
 class Api::V1::ContactsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @contact = contacts(:one)
+    @params = {
+      contact: {
+        first_name: 'Didi',
+        last_name: 'Moco Update',
+        phone: '85991929293',
+        street: 'Rua x',
+        neighborhood: 'Bairro Y',
+        city: 'Cidade W',
+        state: 'Estado Z',
+        birthday: '1987-05-10',
+        user_id: @contact.user_id
+      }
+    }
   end
 
   test 'should show contacts' do
@@ -26,19 +39,7 @@ class Api::V1::ContactsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test 'should create contact' do
-    post api_v1_contacts_url, params: {
-      contact: {
-        first_name: 'Didi',
-        last_name: 'Moco',
-        phone: '85991929293',
-        street: 'Rua x',
-        neighborhood: 'Bairro Y',
-        city: 'Cidade W',
-        state: 'Estado Z',
-        birthday: '1987-05-10',
-        user_id: @contact.user_id
-      }
-    },
+    post api_v1_contacts_url, params: @params,
     headers: {
       Authorization: JsonWebToken.encode(user_id: @contact.user_id)
     }, as: :json
@@ -64,5 +65,18 @@ class Api::V1::ContactsControllerTest < ActionDispatch::IntegrationTest
     }, as: :json
 
     assert_response :unprocessable_entity
+  end
+
+  test 'should update contact' do
+
+    patch api_v1_contact_url(@contact), params: @params,
+    headers: {
+      Authorization: JsonWebToken.encode(user_id: @contact.user_id)
+    }, as: :json
+
+    assert_response :success
+
+    json_response = JSON.parse(response.body)
+    assert_equal @params[:contact][:last_name], json_response['last_name']
   end
 end
