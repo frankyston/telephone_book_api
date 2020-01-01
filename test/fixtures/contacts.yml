@@ -1,0 +1,23 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  first_name: <%= Faker::Name.first_name %>
+  last_name: <%= Faker::Name.last_name %>
+  phone: <%= Faker::PhoneNumber.cell_phone %>
+  streat: <%= Faker::Address.street_name %>
+  neighbourhood: <%= Faker::Address.community %>
+  city: <%= Faker::Address.city %>
+  state: <%= Faker::Address.state %>
+  birthday: <%= Faker::Date.birthday %>
+  user: one
+
+two:
+  first_name: <%= Faker::Name.first_name %>
+  last_name: <%= Faker::Name.last_name %>
+  phone: <%= Faker::PhoneNumber.cell_phone %>
+  streat: <%= Faker::Address.street_name %>
+  neighbourhood: <%= Faker::Address.community %>
+  city: <%= Faker::Address.city %>
+  state: <%= Faker::Address.state %>
+  birthday: <%= Faker::Date.birthday %>
+  user: two
