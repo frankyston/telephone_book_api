@@ -1,11 +1,14 @@
 class Api::V1::ContactsController < ApplicationController
+  include Paginable
   before_action :check_login
   before_action :set_contact, only: [:show, :update, :destroy]
   before_action :set_options
 
   def index
-    contacts = ContactSerializer.new(current_user.contacts, @options).serializable_hash
-    render json: contacts, status: :ok
+    @contacts = current_user.contacts.page(current_page).per(per_page)
+    @options = get_links_serializer_options(@options, 'api_v1_contacts_path', @contacts)
+    @contacts = ContactSerializer.new(@contacts, @options).serializable_hash
+    render json: @contacts, status: :ok
   end
 
   def show
