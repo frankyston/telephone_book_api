@@ -6,9 +6,9 @@ class Api::V1::ContactsController < ApplicationController
 
   def index
     @contacts = current_user.contacts.page(current_page).per(per_page)
+    @contacts = @contacts.search(params[:q]) if params[:q].present?
     @options = get_links_serializer_options(@options, 'api_v1_contacts_path', @contacts)
-    @contacts = ContactSerializer.new(@contacts, @options).serializable_hash
-    render json: @contacts, status: :ok
+    render json: ContactSerializer.new(@contacts, @options).serializable_hash, status: :ok
   end
 
   def show
